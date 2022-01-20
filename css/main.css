@@ -1,0 +1,32 @@
+
+
+#bloco h1 {
+    margin-left: 10px;
+    color: white;
+}
+
+img {
+    width: 150px;
+   
+
+}
+
+.personagem {
+    width: 150px;
+    margin: 16px;
+
+    text-align: center;
+  
+
+
+}
+
+
+
+
+#shield {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+}
+

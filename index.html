@@ -1,0 +1,165 @@
+<!doctype html>
+<html ng-app="Herois">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Mundo Marvel - Heroes</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+    <link  rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"  crossorigin="anonymous">
+    
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./js/herois.module.js"></script>
+  
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+  </head>
+  <body>
+    
+  <header>
+    <div class="collapse bg-dark" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">Sobre</h4>
+          <p class="text-muted">Teste desenvolvido para processo seletivo Desenvolvedor QTNESS. Criado com AngularJs e apresentado com Bootstrap.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Contato</h4>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">fabiocotta@fabiocotta.com.br</a></li>
+                 <li><a href="#" class="text-white">https://github.com/fabiocotta</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+          <img src="./img/lg_marvel.jpg">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Buscando Personagem...</h1>
+  
+        <p>
+           <input type="text" class="input-primary">
+          <a href="#" class="btn btn-primary my-2">Buscar</a>
+  
+        </p>
+      </div>
+    </div>
+  </section>
+  
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div id="shield"></div>
+        </div> 
+    </div>
+
+
+</div>
+</div>
+</div>
+
+
+
+</main>
+
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Ir para S.H.I.L.E.D</a>
+    </p>
+    <p class="mb-1">Fc.Design todos os direitos reservados - 2022</p>
+    <p class="mb-0"><a href="webmail.fabiocotta.com.br">fabiocotta@fabiocotta.com.br</a>.</p>
+  </div>
+</footer>
+<script  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"  crossorigin="anonymous"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"  crossorigin="anonymous"></script>
+<script  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"  crossorigin="anonymous"></script>
+
+
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    const timeStamp = '1642453917';
+    const apiKey = '5a237863b3cc2061003cbbc4fe20dc06'; 
+    const md5 = '3c89eab96be49203d3a387e5313c568b';
+    
+    fetch(`https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp}&apikey=${apiKey}&hash=${md5}`
+    ).then((response) => {
+      return response.json();
+    }).then((jsonParsed) => {
+      const divBox = document.querySelector('#shield'); //utilizando seletor com id
+
+      jsonParsed.data.results.forEach(element => { //listando no elemento
+          const id = element.id
+          const srcImage = element.thumbnail.path + '.' + element.thumbnail.extension //concatenando o path da img
+          const namePersona = element.name
+          
+          createdivBox(id, srcImage, namePersona, divBox)
+      });
+
+      console.log(jsonParsed);
+  })
+  
+  function createdivBox(id, srcImage, namePersona, divToAppend) { //carregando div
+      const divPai = document.createElement('div')
+      const divFilho = document.createElement('div')
+      const divSubFilho = document.createElement('div')
+      const idnm = document.createElement('text')
+      const textName = document.createElement('text')
+      const img = document.createElement('img')
+
+      
+      textName.textContent = namePersona
+      img.src = srcImage
+      idnm.textContent = id
+
+      divFilho.appendChild(img)
+      divFilho.appendChild(idnm)
+      divFilho.appendChild(divSubFilho)
+      divSubFilho.appendChild(textName).classList.add("card-body")
+      divPai.appendChild(divFilho)
+      divToAppend.appendChild(divPai)
+
+      divPai.classList.add("personagem")
+  }      
+  </script>
+
+      
+  </body>
+</html>
